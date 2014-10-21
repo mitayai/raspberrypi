@@ -1,7 +1,8 @@
 This was made for a Model B with a Adafruit PiTFT Touchscreen display
+Running Adafruit's modified raspbian
+logged in as pi
+in the same directory as this file
 
-to install, run as pi:
+run as pi:
 
-mkdir ~/bin
-cp ./raspberrypi/pi ~/bin 
-
+./install

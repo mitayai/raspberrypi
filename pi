@@ -1,7 +1,11 @@
 #!/bin/sh
+version=0.1
 basename=`basename $0`
 
 case $1 in 
+version) 
+  echo $version
+  ;;
 [Xx])
   case $2 in
   off|stop)
@@ -65,7 +69,7 @@ screen)
   esac
   ;;
 *)
-  echo "Commands:\n  $basename screen\n  $basename X"
+  echo "Commands:\n  $basename screen\n  $basename X\n  $basename version"
   ;;
 esac
 

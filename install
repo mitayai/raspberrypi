@@ -1,0 +1,2 @@
+#!/bin/sh
+mkdir -p ~/bin && cp ./pi ~/bin && chmod 700 ~/bin/pi && chmod u+x ~/bin && echo Done.
