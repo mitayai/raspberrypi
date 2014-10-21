@@ -2,18 +2,18 @@
 version=0.1
 basename=`basename $0`
 
-case $1 in 
-version) 
+case $1 in
+version)
   echo $version
   ;;
 [Xx])
   case $2 in
   off|stop)
-    sudo /etc/init.d/lightdm stop > /dev/null 2>&1 
+    sudo /etc/init.d/lightdm stop > /dev/null 2>&1
     (sudo /etc/init.d/lightdm status > /dev/null 2>&1 && echo "x is on") || echo "x is off"
     ;;
   on|start)
-    sudo /etc/init.d/lightdm start > /dev/null 2>&1 
+    sudo /etc/init.d/lightdm start > /dev/null 2>&1
     (sudo /etc/init.d/lightdm status > /dev/null 2>&1 && echo "x is on") || echo "x is off"
     ;;
   status)
@@ -68,8 +68,11 @@ screen)
     ;;
   esac
   ;;
+address)
+  ip address show
+  ;;
 *)
-  echo "Commands:\n  $basename screen\n  $basename X\n  $basename version"
+  echo "Commands:\n  $basename screen\n  $basename X\n  $basename version\n  $basename address"
   ;;
 esac
 
