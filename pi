@@ -5,15 +5,15 @@ case $1 in
 [Xx])
   case $2 in
   off|stop)
-    sudo /etc/init.d/lightdm stop
-    sudo /etc/init.d/lightdm status
+    sudo /etc/init.d/lightdm stop > /dev/null 2>&1 
+    (sudo /etc/init.d/lightdm status > /dev/null 2>&1 && echo "x is on") || echo "x is off"
     ;;
   on|start)
-    sudo /etc/init.d/lightdm start
-    sudo /etc/init.d/lightdm status
+    sudo /etc/init.d/lightdm start > /dev/null 2>&1 
+    (sudo /etc/init.d/lightdm status > /dev/null 2>&1 && echo "x is on") || echo "x is off"
     ;;
   status)
-    sudo /etc/init.d/lightdm status
+    (sudo /etc/init.d/lightdm status > /dev/null 2>&1 && echo "x is on") || echo "x is off"
     ;;
   *)
     echo "Commands:\n  $basename $1 off\n  $basename $1 on\n  $basename $1 status"
@@ -68,5 +68,4 @@ screen)
   echo "Commands:\n  $basename screen\n  $basename X"
   ;;
 esac
-
 
