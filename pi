@@ -1,0 +1,72 @@
+#!/bin/sh
+basename=`basename $0`
+
+case $1 in 
+[Xx])
+  case $2 in
+  off|stop)
+    sudo /etc/init.d/lightdm stop
+    sudo /etc/init.d/lightdm status
+    ;;
+  on|start)
+    sudo /etc/init.d/lightdm start
+    sudo /etc/init.d/lightdm status
+    ;;
+  status)
+    sudo /etc/init.d/lightdm status
+    ;;
+  *)
+    echo "Commands:\n  $basename $1 off\n  $basename $1 on\n  $basename $1 status"
+    ;;
+  esac
+  ;;
+screen)
+  case $2 in
+  off)
+    sudo sh -c "echo 252 > /sys/class/gpio/export"
+    sudo sh -c "echo 'out' > /sys/class/gpio/gpio252/direction"
+    sudo sh -c "echo '0' > /sys/class/gpio/gpio252/value"
+    $0 $1 status
+    ;;
+  on)
+    sudo sh -c "echo 252 > /sys/class/gpio/export"
+    sudo sh -c "echo 'out' > /sys/class/gpio/gpio252/direction"
+    sudo sh -c "echo '1' > /sys/class/gpio/gpio252/value"
+    status=`cat /sys/class/gpio/gpio252/value`
+    case $status in
+    1)
+      echo "Backlight is on"
+      ;;
+    0)
+      echo "Backlight is off"
+      ;;
+    *)
+      echo "Backlight status unknown"
+      ;;
+    esac
+    ;;
+  status)
+    status=`cat /sys/class/gpio/gpio252/value`
+    case $status in
+    1)
+      echo "Backlight is on"
+      ;;
+    0)
+      echo "Backlight is off"
+      ;;
+    *)
+      echo "Backlight status unknown"
+      ;;
+    esac
+    ;;
+  *)
+    echo "Commands:\n  $basename $1 off\n  $basename $1 on\n  $basename $1 status"
+    ;;
+  esac
+  ;;
+*)
+  echo "Commands:\n  $basename screen\n  $basename X"
+  ;;
+esac
+
+
